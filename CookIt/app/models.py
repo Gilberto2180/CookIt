@@ -10,7 +10,12 @@ class UsuarioComplementacion(models.Model):
     fecha_nacimiento = models.DateTimeField()
     alergias = models.CharField(max_length=300)
     tipo_cocina_favorita = models.CharField(max_length=60)
-    info = models.OneToOneField(User, on_delete=models.CASCADE)
+    info = models.OneToOneField(
+        User, 
+        null=True, 
+        blank=True, 
+        on_delete=models.CASCADE
+    )
 
 class Favorito(models.Model):
     ranking_favorito = models.IntegerField(default=20)
