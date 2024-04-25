@@ -1,13 +1,16 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 
-class Usuario(models.Model):
+User = get_user_model()
+
+
+class UsuarioComplementacion(models.Model):
     nombre_completo = models.CharField(max_length=100)
-    nombre_usuario = models.CharField(max_length=50, primary_key=True)
     preferencias_dieteticas = models.CharField(max_length=200)
-    contraseña = models.CharField(max_length=16)
     fecha_nacimiento = models.DateTimeField()
     alergias = models.CharField(max_length=300)
     tipo_cocina_favorita = models.CharField(max_length=60)
+    info = models.OneToOneField(User, on_delete=models.CASCADE)
 
 class Favorito(models.Model):
     ranking_favorito = models.IntegerField(default=20)
