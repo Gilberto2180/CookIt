@@ -1,11 +1,52 @@
 from django.db import models
-from django.contrib.auth import get_user_model
+from django.contrib.auth.models import (
+    BaseUserManager,
+    AbstractBaseUser,
+    PermissionsMixin
+)
 
-User = get_user_model()
+
+class UserManager(BaseUserManager):
+    def create_user(self, username, email, password=None, **extra_fields):
+        if not email:
+            raise ValueError("Users must have an email")
+        
+        email = self.normalize_email(email)
+        user = self.model(username=username, email=email, **extra_fields)
+
+        user.set_password(password)
+        user.save()
+
+        return user
+
+    def create_superuser(self, username, email, password, **extra_fields):
+        user = self.create_user(username, email, password, **extra_fields)
+
+        user.is_superuser = True
+        user.is_active = True
+        user.save()
+
+        return user
+
+
+class User(AbstractBaseUser, PermissionsMixin):
+    username = models.CharField(max_length=50, unique=True)
+    email = models.EmailField(max_length=255, unique=True)
+    fisrt_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+
+    objects = UserManager()
+
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ["username", "fisrt_name", "last_name"]
+
+    def __str__(self):
+        return self.username
 
 
 class UsuarioComplementacion(models.Model):
-    nombre_completo = models.CharField(max_length=100)
     preferencias_dieteticas = models.CharField(max_length=200)
     fecha_nacimiento = models.DateTimeField()
     alergias = models.CharField(max_length=300)
