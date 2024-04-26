@@ -190,10 +190,10 @@ DJOSER = {
     'ACTIVATION_URL': 'activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': False,
     'SOCIAL_AUTH_TOKEN_STRATEGY': 'djoser.social.token.jwt.TokenStrategy',
-    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['http://localhost:8000/', 'http://localhost:8000/facebook'],
+    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['http://localhost:8000', 'http://127.0.0.1:8000'],
     'SERIALIZERS': {
         'user_create': 'app.serializers.UserCreateSerializer',
-        'user': 'app.serializers.UserComplementationSerializer',
+        'user': 'app.serializers.UserCreateSerializer',
         'current_user': 'app.serializers.UserCreateSerializer',
         'user_delete': 'djoser.serializers.UserDeleteSerializer',
     },
