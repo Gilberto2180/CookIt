@@ -10,7 +10,7 @@ class UserManager(BaseUserManager):
     def create_user(self, username, email, password=None, **extra_fields):
         if not email:
             raise ValueError("Users must have an email")
-        
+
         email = self.normalize_email(email)
         user = self.model(username=username, email=email, **extra_fields)
 
@@ -46,15 +46,22 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.username
 
 
+class Alergia(models.Model):
+    nombre_alergia = models.CharField(max_length=100)
+
+class ImagenReceta(models.Model):
+    imagen = models.ImageField(upload_to='recetas/')
+    receta = models.ForeignKey('Receta', on_delete=models.CASCADE)
+
 class UsuarioComplementacion(models.Model):
     preferencias_dieteticas = models.CharField(max_length=200)
     fecha_nacimiento = models.DateTimeField()
-    alergias = models.CharField(max_length=300)
+    alergias = models.ManyToManyField(Alergia)
     tipo_cocina_favorita = models.CharField(max_length=60)
     info = models.OneToOneField(
-        User, 
-        null=True, 
-        blank=True, 
+        User,
+        null=True,
+        blank=True,
         on_delete=models.CASCADE
     )
 
@@ -63,6 +70,7 @@ class Favorito(models.Model):
     fecha_marcada = models.DateTimeField()
     veces_vista = models.IntegerField(default=600)
 
+
 class Receta(models.Model):
     nombre_receta = models.CharField(max_length=300)
     calorias = models.BigIntegerField()
@@ -70,10 +78,12 @@ class Receta(models.Model):
     tipo_comida = models.CharField(max_length=100)
     dificultad = models.CharField(max_length=50)
     pasos = models.TextField(max_length=3000)
-    imagenes = models.ImageField(upload_to='recetas/', blank=True, null=True)
+    ingredientes = models.ManyToManyField('Ingrediente')
+
 
 class Ingrediente(models.Model):
     nombre_ingrediente = models.CharField(max_length=300)
+
 
 class ListaDeCompras(models.Model):
     fecha_creacion = models.DateTimeField()
@@ -84,6 +94,7 @@ class ListaDeCompras(models.Model):
     liquidos = models.TextField(max_length=3000)
     legumbres = models.TextField(max_length=3000)
     cereales = models.TextField(max_length=3000)
+
 
 class PlaneacionSemanal(models.Model):
     dia_inicio = models.DateTimeField()
