@@ -6,7 +6,7 @@ from . import views
 
 router = DefaultRouter()
 
-# router.register("users", views.UserModelViewSet)
+router.register("userscomp", views.UserComplementationModelViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),
