@@ -7,6 +7,12 @@ from . import views
 router = DefaultRouter()
 
 router.register("userscomp", views.UserComplementationModelViewSet)
+router.register(r'alergia', views.AlergiaViewSet)
+router.register(r'imagenreceta', views.ImagenRecetaViewSet)
+router.register(r'favorito', views.FavoritoViewSet)
+router.register(r'ingrediente', views.IngredienteViewSet)
+router.register(r'listadecompras', views.ListaDeComprasViewSet)
+router.register(r'planeacionsemanal', views.PlaneacionSemanalViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),
