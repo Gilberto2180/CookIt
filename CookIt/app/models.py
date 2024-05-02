@@ -49,9 +49,11 @@ class User(AbstractBaseUser, PermissionsMixin):
 class Alergia(models.Model):
     nombre_alergia = models.CharField(max_length=100)
 
+
 class ImagenReceta(models.Model):
     imagen = models.ImageField(upload_to='recetas/')
-    receta = models.ForeignKey('Receta', on_delete=models.CASCADE)
+    receta = models.ForeignKey('Receta', on_delete=models.CASCADE, related_name="imagenes")
+
 
 class UsuarioComplementacion(models.Model):
     preferencias_dieteticas = models.CharField(max_length=200)
@@ -64,6 +66,7 @@ class UsuarioComplementacion(models.Model):
         blank=True,
         on_delete=models.CASCADE
     )
+
 
 class Favorito(models.Model):
     ranking_favorito = models.IntegerField(default=20)
@@ -79,6 +82,7 @@ class Receta(models.Model):
     dificultad = models.CharField(max_length=50)
     pasos = models.TextField(max_length=3000)
     ingredientes = models.ManyToManyField('Ingrediente')
+
 
 
 class Ingrediente(models.Model):

@@ -13,6 +13,7 @@ router.register(r'favorito', views.FavoritoViewSet)
 router.register(r'ingrediente', views.IngredienteViewSet)
 router.register(r'listadecompras', views.ListaDeComprasViewSet)
 router.register(r'planeacionsemanal', views.PlaneacionSemanalViewSet)
+router.register(r'recetas', views.RecetaViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),
