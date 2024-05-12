@@ -50,6 +50,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 class Alergia(models.Model):
     nombre_alergia = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.nombre_alergia
+
 
 class ImagenReceta(models.Model):
     imagen = models.ImageField(upload_to='recetas/')
@@ -84,10 +87,15 @@ class Receta(models.Model):
     pasos = models.TextField(max_length=3000)
     ingredientes = models.ManyToManyField('Ingrediente')
 
+    def __str__(self):
+        return self.nombre_receta
 
 
 class Ingrediente(models.Model):
     nombre_ingrediente = models.CharField(max_length=300)
+
+    def __str__(self):
+        return self.nombre_ingrediente
 
 
 class ListaDeCompras(models.Model):
@@ -100,8 +108,14 @@ class ListaDeCompras(models.Model):
     legumbres = models.TextField(max_length=3000)
     cereales = models.TextField(max_length=3000)
 
+    def __str__(self):
+        return self.fecha_creacion
+
 
 class PlaneacionSemanal(models.Model):
     dia_inicio = models.DateTimeField()
     dia_finalizacion = models.DateTimeField()
     comida_del_dia = models.TextField(max_length=3000)
+
+    def __str__(self):
+        return self.dia_inicio
