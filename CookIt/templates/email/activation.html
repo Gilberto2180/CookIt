@@ -1,0 +1,51 @@
+{% load i18n %}
+
+{% load static %}
+<link rel="stylesheet"  type="text/css" href="{% static "/email/email.css" %}">
+
+{% block subject %}
+{% blocktrans %}Activavion de cuenta en {{ site_name }}{% endblocktrans %}
+{% endblock subject %}
+
+{% block text_body %}
+{% blocktrans %}You're receiving this email because you need to finish activation process on {{ site_name }}.{% endblocktrans %}
+
+{% trans "Please go to the following page to activate account:" %}
+{{ protocol }}://{{ domain }}/{{ url|safe }}
+
+{% trans "Thanks for using our site!" %}
+
+{% blocktrans %}The {{ site_name }} team{% endblocktrans %}
+{% endblock text_body %}
+
+
+{% block html_body %}
+<div
+    style="
+    font-family: sans-serif;
+    "
+>
+    <p style="text-align: center;">
+        {% blocktrans %}Estas recibiendo este correo porque necesitas finalizar el proceso de activacion de cuenta en: {{ site_name }}.{% endblocktrans %}
+    </p>
+    <p style="text-align: center;">
+        Copia el siguiente token y pegalo dentro de la aplicacion:
+    </p>
+    <p
+        style="
+            background-color: #888888;
+            padding: 20px;
+            border-radius: 10px;
+            color: #fff;
+            text-align: center;
+            margin: 0 20%;
+        "
+    >
+        {{ uid }}/{{ token }}
+    </p>
+    <p style="text-align: center;">{% trans "Gacias por usar nuestra aplicacion :D!" %}</p>
+    <p style="text-align: center;">
+        {% blocktrans %}The {{ site_name }} team{% endblocktrans %}
+    </p>
+</div>
+{% endblock html_body %}
