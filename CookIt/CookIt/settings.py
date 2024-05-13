@@ -190,7 +190,7 @@ DJOSER = {
     'ACTIVATION_URL': 'activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
     'SOCIAL_AUTH_TOKEN_STRATEGY': 'djoser.social.token.jwt.TokenStrategy',
-    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['http://localhost:8000', 'http://127.0.0.1:8000'],
+    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['http://localhost:8000', 'http://127.0.0.1:8000', "https://cookit-j5x3.onrender.com"],
     'SERIALIZERS': {
         'user_create': 'app.serializers.UserCreateSerializer',
         'user': 'app.serializers.UserCreateSerializer',
