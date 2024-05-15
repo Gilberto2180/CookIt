@@ -13,6 +13,16 @@ class AlergiaViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.AlergiaSerializer
 
 
+class ComentarioViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.ComentarioSerializer
+    queryset = models.Comentario.objects.all()
+
+
+class CategoriaViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.CategoriaSerializer
+    queryset = models.Categoria.objects.all()
+
+
 class ImagenRecetaViewSet(viewsets.ModelViewSet):
     queryset = models.ImagenReceta.objects.all()
     serializer_class = serializers.ImagenRecetaSerializer

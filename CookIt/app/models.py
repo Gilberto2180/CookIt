@@ -78,17 +78,9 @@ class Favorito(models.Model):
     veces_vista = models.IntegerField(default=600)
 
 
-class Receta(models.Model):
-    nombre_receta = models.CharField(max_length=300)
-    calorias = models.BigIntegerField()
-    origen_receta = models.CharField(max_length=100)
-    tipo_comida = models.CharField(max_length=100)
-    dificultad = models.CharField(max_length=50)
-    pasos = models.TextField(max_length=3000)
-    ingredientes = models.ManyToManyField('Ingrediente')
-
-    def __str__(self):
-        return self.nombre_receta
+class Comentario(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    contenido = models.TextField()
 
 
 class Ingrediente(models.Model):
@@ -96,6 +88,28 @@ class Ingrediente(models.Model):
 
     def __str__(self):
         return self.nombre_ingrediente
+
+
+class Categoria(models.Model):
+    nombre = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.nombre
+
+
+class Receta(models.Model):
+    nombre_receta = models.CharField(max_length=300)
+    calorias = models.BigIntegerField()
+    origen_receta = models.CharField(max_length=100)
+    tipo_comida = models.CharField(max_length=100)
+    dificultad = models.CharField(max_length=50)
+    pasos = models.TextField(max_length=3000)
+    categorias = models.ManyToManyField(Categoria)
+    ingredientes = models.ManyToManyField(Ingrediente)
+    comentarios = models.ForeignKey(Comentario, on_delete=models.CASCADE, blank=True, null=True)
+
+    def __str__(self):
+        return self.nombre_receta
 
 
 class ListaDeCompras(models.Model):

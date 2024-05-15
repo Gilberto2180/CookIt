@@ -6,6 +6,12 @@ from . import models
 User = get_user_model()
 
 
+class ComentarioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Comentario
+        fields = "__all__"
+
+
 class UserCreateSerializer(UserCreateSerializer):
     class Meta(UserCreateSerializer.Meta):
         model = User
@@ -27,7 +33,7 @@ class AlergiaSerializer(serializers.ModelSerializer):
 class ImagenRecetaSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.ImagenReceta
-        fields = "__all__"
+        fields = ["id", "imagen"]
 
 
 class FavoritoSerializer(serializers.ModelSerializer):
@@ -54,6 +60,12 @@ class PlaneacionSemanalSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class CategoriaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Categoria
+        fields = "__all__"
+
+
 class RecetaSerializer(serializers.ModelSerializer):
     imagenes = ImagenRecetaSerializer(many=True, read_only=True)
     imagenes_subidas = serializers.ListField(
@@ -65,10 +77,20 @@ class RecetaSerializer(serializers.ModelSerializer):
         write_only=True
     )
 
-    ingredientes = serializers.PrimaryKeyRelatedField(
+    ingredientes_post = serializers.PrimaryKeyRelatedField(
         queryset=models.Ingrediente.objects.all(),
-        many=True
+        many=True,
+        write_only=True
     )
+
+    categorias_post = serializers.PrimaryKeyRelatedField(
+        queryset=models.Categoria.objects.all(),
+        many=True,
+        write_only=True
+    )
+
+    ingredientes = IngredienteSerializer(many=True, read_only=True)
+    categorias = CategoriaSerializer(many=True, read_only=True)
 
     class Meta:
         model = models.Receta
@@ -76,7 +98,8 @@ class RecetaSerializer(serializers.ModelSerializer):
     
     def create(self, validated_data):
         uploaded_images = validated_data.pop("imagenes_subidas")
-        ingredientes_data = validated_data.pop("ingredientes", [])
+        ingredientes_data = validated_data.pop("ingredientes_post", [])
+        categories_data = validated_data.pop("categorias_post", [])
 
         recipe = models.Receta.objects.create(**validated_data)
 
@@ -88,5 +111,8 @@ class RecetaSerializer(serializers.ModelSerializer):
 
         for ingrediente in ingredientes_data:
             recipe.ingredientes.add(ingrediente)
+        
+        for category in categories_data:
+            recipe.categorias.add(category)
             
         return recipe

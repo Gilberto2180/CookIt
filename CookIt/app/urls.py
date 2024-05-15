@@ -14,6 +14,8 @@ router.register(r'ingrediente', views.IngredienteViewSet)
 router.register(r'listadecompras', views.ListaDeComprasViewSet)
 router.register(r'planeacionsemanal', views.PlaneacionSemanalViewSet)
 router.register(r'recetas', views.RecetaViewSet)
+router.register(r'comentarios', views.ComentarioViewSet)
+router.register(r'categorias', views.CategoriaViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),
