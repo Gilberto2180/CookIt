@@ -29,7 +29,6 @@
         {% blocktrans %}Estas recibiendo este correo porque necesitas finalizar el proceso de activacion de cuenta en: {{ site_name }}.{% endblocktrans %}
     </p>
     <p style="text-align: center;">
-        Copia el siguiente token y pegalo dentro de la aplicacion:
     </p>
     <p
         style="
@@ -38,10 +37,10 @@
             border-radius: 10px;
             color: #fff;
             text-align: center;
-            margin: 0 20%;
+            margin: 0 25%;
         "
     >
-        {{ uid }}/{{ token }}
+        <a style="text-decoration: none; color: #fff;" href="{{ protocol }}://{{ domain }}/{{ url|safe }}">Click aqui para activar la cuenta</a>
     </p>
     <p style="text-align: center;">{% trans "Gacias por usar nuestra aplicacion :D!" %}</p>
     <p style="text-align: center;">

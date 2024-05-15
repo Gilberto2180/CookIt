@@ -1,5 +1,6 @@
 from rest_framework.viewsets import ModelViewSet
 from rest_framework import viewsets
+from django.shortcuts import render
 from . import models, serializers
 
 
@@ -51,3 +52,10 @@ class PlaneacionSemanalViewSet(viewsets.ModelViewSet):
 class RecetaViewSet(ModelViewSet):
     serializer_class = serializers.RecetaSerializer
     queryset = models.Receta.objects.all()
+
+
+def AccountActivation(request, uid, token):
+    return render(request, "activation/activation.html", {
+        "uid": uid,
+        "token": token
+    })

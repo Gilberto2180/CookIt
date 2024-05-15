@@ -143,7 +143,7 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'app/static')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
@@ -202,8 +202,8 @@ DJOSER = {
     }
 }
 
-DOMAIN = ("Cookit")
-SITE_NAME = ("Cookit")
+DOMAIN = (os.environ.get("DOMAIN"))
+SITE_NAME = (os.environ.get("SITE_NAME"))
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get("OAUTH2_KEY")
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get("OAUTH2_SECRET")
