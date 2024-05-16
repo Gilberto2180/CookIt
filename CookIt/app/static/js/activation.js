@@ -1,5 +1,5 @@
 const activate = async (uid, token) => {
-    const url = "http://localhost:8000/auth/users/activation/"
+    const url = "https://dashboard.render.com/auth/users/activation/"
     
     console.log(uid)
     console.log(token)
