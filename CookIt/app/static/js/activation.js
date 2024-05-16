@@ -1,12 +1,26 @@
-const nose = async () => {
-    const url = "https://cookit-j5x3.onrender.com/auth/o/google-oauth2/?state=eaJR4BKLWKV6ePc6oBGEPoO8AmZSO91w&code=4%2F0AdLIrYf-DhomJph1bLk4DSYIumIVe52JvnbWRITmeTewRl5VU96prwGNI95XGFj7jxj8og"
+const activate = async (uid, token) => {
+    const url = "http://localhost:8000/auth/users/activation/"
+    
+    console.log(uid)
+    console.log(token)
+    
+    const body = {
+        uid,
+        token,
+    }
     const response = await fetch(url, {
-        method: "POST"
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: {
+            "Content-Type": "application/json"
+        }
     })
 
-    const n = await response.json()
+    const content = document.getElementById("info")
 
-    console.log(n)
+    if (response.status === 204) {
+        content.innerHTML = "Cuenta activada! Regrese a la aplicacion"
+    } else {
+        content.innerHTML = "Su cuenta ya encuentea activa, regrese a la aplicacion"
+    }
 }
-
-nose()

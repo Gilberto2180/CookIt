@@ -5,12 +5,17 @@
 
 {% block head %}
 <script src="{% static "js/activation.js" %}"></script>
+<script>
+    window.onload = function() {
+        activate("{{ uid }}", "{{ token }}")
+    }
+</script>
 {%endblock%}
 
 {% block content %}
 <div class="container">
     <h1>Activacion de cuenta</h1>
     <img src="{% static "images/mewo.jpg" %}" alt="I go meow" >
-    <p class="text">Activando cuenta...</p>
+    <p id="info" class="text">Activando cuenta...</p>
 </div>
 {% endblock %}
