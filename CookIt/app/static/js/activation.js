@@ -1,5 +1,5 @@
 const activate = async (uid, token) => {
-    const url = "https://dashboard.render.com/auth/users/activation/"
+    const url = "https://cookit-j5x3.onrender.com/auth/users/activation/"
     
     console.log(uid)
     console.log(token)
