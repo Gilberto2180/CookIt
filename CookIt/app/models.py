@@ -104,6 +104,7 @@ class Receta(models.Model):
     tipo_comida = models.CharField(max_length=100)
     dificultad = models.CharField(max_length=50)
     pasos = models.TextField(max_length=3000)
+    tiempo_preparacion = models.CharField(max_length=50, null=True, blank=True)
     categorias = models.ManyToManyField(Categoria)
     ingredientes = models.ManyToManyField(Ingrediente)
     comentarios = models.ForeignKey(Comentario, on_delete=models.CASCADE, blank=True, null=True)
