@@ -6,12 +6,6 @@ from . import models
 User = get_user_model()
 
 
-class ComentarioSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.Comentario
-        fields = "__all__"
-
-
 class UserCreateSerializer(UserCreateSerializer):
     class Meta(UserCreateSerializer.Meta):
         model = User
@@ -21,6 +15,18 @@ class UserCreateSerializer(UserCreateSerializer):
 class UserComplementationSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.UsuarioComplementacion
+        fields = "__all__"
+
+
+class ComentarioSerializer(serializers.ModelSerializer):
+    usuario_id = serializers.PrimaryKeyRelatedField(
+        queryset=User.objects.all(), 
+        source='usuario', 
+        write_only=True
+    )
+    usuario = UserCreateSerializer(read_only=True)  
+    class Meta:
+        model = models.Comentario
         fields = "__all__"
 
 
@@ -67,6 +73,7 @@ class CategoriaSerializer(serializers.ModelSerializer):
 
 
 class RecetaSerializer(serializers.ModelSerializer):
+    comentarios = ComentarioSerializer(many=True, read_only=True)
     imagenes = ImagenRecetaSerializer(many=True, read_only=True)
     imagenes_subidas = serializers.ListField(
         child=serializers.ImageField(
