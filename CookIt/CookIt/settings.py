@@ -193,6 +193,9 @@ DJOSER = {
     'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['http://localhost:8000', 'http://127.0.0.1:8000', "https://cookit-j5x3.onrender.com"],
     "EMAIL": {
         "activation": "app.email.ActivationEmail"
+    },
+    "SERIALIZERS": {
+        'current_user': 'app.serializers.UserCreateSerializer',
     }
 }
 

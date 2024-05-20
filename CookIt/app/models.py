@@ -99,9 +99,20 @@ class Receta(models.Model):
     tipo_comida = models.CharField(max_length=100)
     dificultad = models.CharField(max_length=50)
     pasos = models.TextField(max_length=3000)
-    tiempo_preparacion = models.CharField(max_length=50, null=True, blank=True)
+    tiempo_preparacion = models.CharField(
+        max_length=50,
+        null=True,
+        blank=True
+    )
     categorias = models.ManyToManyField(Categoria)
     ingredientes = models.ManyToManyField(Ingrediente)
+    usuario = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        related_name="recetas"
+    )
 
     def __str__(self):
         return self.nombre_receta

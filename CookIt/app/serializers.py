@@ -6,12 +6,6 @@ from . import models
 User = get_user_model()
 
 
-class UserCreateSerializer(UserCreateSerializer):
-    class Meta(UserCreateSerializer.Meta):
-        model = User
-        fields = ["id", "username", "email", "first_name", "last_name", "password"]
-
-
 class UserComplementationSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.UsuarioComplementacion
@@ -75,6 +69,7 @@ class CategoriaSerializer(serializers.ModelSerializer):
 class RecetaSerializer(serializers.ModelSerializer):
     comentarios = ComentarioSerializer(many=True, read_only=True)
     imagenes = ImagenRecetaSerializer(many=True, read_only=True)
+    usuario = UserCreateSerializer(read_only=True)
     imagenes_subidas = serializers.ListField(
         child=serializers.ImageField(
             max_length=1000000, 
@@ -123,3 +118,10 @@ class RecetaSerializer(serializers.ModelSerializer):
             recipe.categorias.add(category)
             
         return recipe
+
+
+class UserCreateSerializer(serializers.ModelSerializer):
+    recetas = RecetaSerializer(many=True, read_only=True)
+    class Meta:
+        model = User
+        fields = ["id", "username", "email", "first_name", "last_name", "recetas"]
