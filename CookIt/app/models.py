@@ -148,10 +148,55 @@ class ListaDeCompras(models.Model):
         return self.fecha_creacion
 
 
+class ComidasPlaneacion(models.Model):
+    desayuno = models.ForeignKey(
+        Receta,
+        on_delete=models.CASCADE, 
+        blank=True,
+        null=True,
+        related_name='comidasplaneacion_desayuno'
+    )
+    colacion = models.ForeignKey(
+        Receta,
+        on_delete=models.CASCADE, 
+        blank=True,
+        null=True,
+        related_name='comidasplaneacion_colacion'
+    )
+    comida = models.ForeignKey(
+        Receta,
+        on_delete=models.CASCADE, 
+        blank=True,
+        null=True,
+        related_name='comidasplaneacion_comida'
+    )
+    colacion2 = models.ForeignKey(
+        Receta,
+        on_delete=models.CASCADE, 
+        blank=True,
+        null=True,
+        related_name='comidasplaneacion_colacion2'
+    )
+    cena = models.ForeignKey(
+        Receta,
+        on_delete=models.CASCADE, 
+        blank=True,
+        null=True,
+        related_name='comidasplaneacion_cena'
+    )
+
+
 class PlaneacionSemanal(models.Model):
+    usuario = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     dia_inicio = models.DateTimeField()
     dia_finalizacion = models.DateTimeField()
-    comida_del_dia = models.TextField(max_length=3000)
+    dia1 = models.OneToOneField(ComidasPlaneacion, on_delete=models.CASCADE, null=True, blank=True, related_name="dia1")
+    dia2 = models.OneToOneField(ComidasPlaneacion, on_delete=models.CASCADE, null=True, blank=True, related_name="dia2")
+    dia3 = models.OneToOneField(ComidasPlaneacion, on_delete=models.CASCADE, null=True, blank=True, related_name="dia3")
+    dia4 = models.OneToOneField(ComidasPlaneacion, on_delete=models.CASCADE, null=True, blank=True, related_name="dia4")
+    dia5 = models.OneToOneField(ComidasPlaneacion, on_delete=models.CASCADE, null=True, blank=True, related_name="dia5")
+    dia6 = models.OneToOneField(ComidasPlaneacion, on_delete=models.CASCADE, null=True, blank=True, related_name="dia6")
+    dia7 = models.OneToOneField(ComidasPlaneacion, on_delete=models.CASCADE, null=True, blank=True, related_name="dia7")
 
     def __str__(self):
         return self.dia_inicio

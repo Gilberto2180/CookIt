@@ -54,6 +54,11 @@ class RecetaViewSet(ModelViewSet):
     queryset = models.Receta.objects.all()
 
 
+class ComidasViewSet(viewsets.ModelViewSet):
+    queryset = models.ComidasPlaneacion.objects.all()
+    serializer_class = serializers.ComidasSerializer
+
+
 def AccountActivation(request, uid, token):
     return render(request, "activation/activation.html", {
         "uid": uid,
