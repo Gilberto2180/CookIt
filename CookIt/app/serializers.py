@@ -64,6 +64,11 @@ class RecetaSerializer(serializers.ModelSerializer):
     comentarios = ComentarioSerializer(many=True, read_only=True)
     imagenes = ImagenRecetaSerializer(many=True, read_only=True)
     usuario = UserCreateSerializer(read_only=True)
+    usuario_id = serializers.PrimaryKeyRelatedField(
+        queryset=User.objects.all(), 
+        source='usuario', 
+        write_only=True
+    )
     imagenes_subidas = serializers.ListField(
         child=serializers.ImageField(
             max_length=1000000, 
