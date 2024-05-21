@@ -119,13 +119,6 @@ class RecetaSerializer(serializers.ModelSerializer):
         return recipe
 
 
-class UserCreateSerializer(serializers.ModelSerializer):
-    recetas = RecetaSerializer(many=True, read_only=True)
-    class Meta:
-        model = User
-        fields = ["id", "username", "email", "first_name", "last_name", "recetas"]
-
-
 class ComidaSendSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.ComidasPlaneacion
@@ -163,3 +156,10 @@ class PlaneacionSemanalSerializer(serializers.ModelSerializer):
         model = models.PlaneacionSemanal
         fields = "__all__"
 
+
+class UserCreateSerializer(serializers.ModelSerializer):
+    recetas = RecetaSerializer(many=True, read_only=True)
+    planeacion = PlaneacionSemanalSerializer(read_only=True)
+    class Meta:
+        model = User
+        fields = ["id", "username", "email", "first_name", "last_name", "recetas", "planeacion"]

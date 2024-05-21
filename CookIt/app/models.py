@@ -187,7 +187,7 @@ class ComidasPlaneacion(models.Model):
 
 
 class PlaneacionSemanal(models.Model):
-    usuario = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    usuario = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True, related_name="planeacion")
     dia_inicio = models.DateTimeField(null=True, blank=True)
     dia_finalizacion = models.DateTimeField(null=True, blank=True)
     dia1 = models.OneToOneField(ComidasPlaneacion, on_delete=models.CASCADE, null=True, blank=True, related_name="dia1")
