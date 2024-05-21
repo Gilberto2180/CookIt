@@ -50,32 +50,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 class Alergia(models.Model):
     nombre_alergia = models.CharField(max_length=100)
 
-    def __str__(self):
-        return self.nombre_alergia
-
 
 class ImagenReceta(models.Model):
     imagen = models.ImageField(upload_to='recetas/')
     receta = models.ForeignKey('Receta', on_delete=models.CASCADE, related_name="imagenes")
-
-
-class UsuarioComplementacion(models.Model):
-    preferencias_dieteticas = models.CharField(max_length=200)
-    fecha_nacimiento = models.DateTimeField()
-    alergias = models.ManyToManyField(Alergia)
-    tipo_cocina_favorita = models.CharField(max_length=60)
-    info = models.OneToOneField(
-        User,
-        null=True,
-        blank=True,
-        on_delete=models.CASCADE
-    )
-
-
-class Favorito(models.Model):
-    ranking_favorito = models.IntegerField(default=20)
-    fecha_marcada = models.DateTimeField()
-    veces_vista = models.IntegerField(default=600)
 
 
 class Ingrediente(models.Model):
@@ -118,6 +96,11 @@ class Receta(models.Model):
         return self.nombre_receta
 
 
+class Favorito(models.Model):
+    usuario = models.ManyToManyField(User)
+    recetas = models.ManyToManyField(Receta)
+
+
 class Comentario(models.Model):
     usuario = models.ForeignKey(
         User,
@@ -134,18 +117,26 @@ class Comentario(models.Model):
     )
 
 
-class ListaDeCompras(models.Model):
-    fecha_creacion = models.DateTimeField()
-    frutas = models.TextField(max_length=3000)
-    verduras = models.TextField(max_length=3000)
-    medida = models.TextField(max_length=4000)
-    productos_origen_animal = models.TextField(max_length=3000)
-    liquidos = models.TextField(max_length=3000)
-    legumbres = models.TextField(max_length=3000)
-    cereales = models.TextField(max_length=3000)
+class UsuarioComplementacion(models.Model):
+    alergias = models.ManyToManyField(Alergia, blank=True)
+    info = models.OneToOneField(
+        User,
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+        related_name="info"
+    )
+    recetas_favoritas = models.ManyToManyField(Receta, blank=True)
+    lista_compras = models.ManyToManyField(Ingrediente, blank=True)
+    foto_perfil = models.ImageField(null=True, blank=True)
 
-    def __str__(self):
-        return self.fecha_creacion
+
+def create_usuario_complementacion(sender, instance, created, **kwargs):
+    if created:
+        UsuarioComplementacion.objects.create(info=instance)
+
+
+models.signals.post_save.connect(create_usuario_complementacion, sender=User)
 
 
 class ComidasPlaneacion(models.Model):

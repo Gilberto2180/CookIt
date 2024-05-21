@@ -5,7 +5,7 @@ from . import models, serializers
 
 
 class UserComplementationModelViewSet(ModelViewSet):
-    serializer_class = serializers.UserComplementationSerializer
+    serializer_class = serializers.UsuarioInfo
     queryset = models.UsuarioComplementacion.objects.all()
 
 
@@ -37,11 +37,6 @@ class FavoritoViewSet(viewsets.ModelViewSet):
 class IngredienteViewSet(viewsets.ModelViewSet):
     queryset = models.Ingrediente.objects.all()
     serializer_class = serializers.IngredienteSerializer
-
-
-class ListaDeComprasViewSet(viewsets.ModelViewSet):
-    queryset = models.ListaDeCompras.objects.all()
-    serializer_class = serializers.ListaDeComprasSerializer
 
 
 class PlaneacionSemanalViewSet(viewsets.ReadOnlyModelViewSet):

@@ -48,12 +48,6 @@ class IngredienteSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class ListaDeComprasSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.ListaDeCompras
-        fields = "__all__"
-
-
 class CategoriaSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Categoria
@@ -157,9 +151,26 @@ class PlaneacionSemanalSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class UsuarioInfoRead(serializers.ModelSerializer):
+    alergias = AlergiaSerializer(many=True, read_only=True)
+    recetas_favoritas = RecetaSerializer(many=True, read_only=True)
+    lista_compras = IngredienteSerializer(many=True, read_only=True)
+
+    class Meta:
+        fields = "__all__"
+        model = models.UsuarioComplementacion
+
+
+class UsuarioInfo(serializers.ModelSerializer):
+    class Meta:
+        fields = "__all__"
+        model = models.UsuarioComplementacion
+
+
 class UserCreateSerializer(serializers.ModelSerializer):
+    info = UsuarioInfoRead(read_only=True)
     recetas = RecetaSerializer(many=True, read_only=True)
     planeacion = PlaneacionSemanalSerializer(read_only=True)
     class Meta:
         model = User
-        fields = ["id", "username", "email", "first_name", "last_name", "recetas", "planeacion"]
+        fields = ["id", "username", "email", "first_name", "last_name", "info", "recetas", "planeacion"]
