@@ -197,6 +197,3 @@ class PlaneacionSemanal(models.Model):
     dia5 = models.OneToOneField(ComidasPlaneacion, on_delete=models.CASCADE, null=True, blank=True, related_name="dia5")
     dia6 = models.OneToOneField(ComidasPlaneacion, on_delete=models.CASCADE, null=True, blank=True, related_name="dia6")
     dia7 = models.OneToOneField(ComidasPlaneacion, on_delete=models.CASCADE, null=True, blank=True, related_name="dia7")
-
-    def __str__(self):
-        return self.usuario
