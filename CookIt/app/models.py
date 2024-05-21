@@ -188,8 +188,8 @@ class ComidasPlaneacion(models.Model):
 
 class PlaneacionSemanal(models.Model):
     usuario = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
-    dia_inicio = models.DateTimeField()
-    dia_finalizacion = models.DateTimeField()
+    dia_inicio = models.DateTimeField(null=True, blank=True)
+    dia_finalizacion = models.DateTimeField(null=True, blank=True)
     dia1 = models.OneToOneField(ComidasPlaneacion, on_delete=models.CASCADE, null=True, blank=True, related_name="dia1")
     dia2 = models.OneToOneField(ComidasPlaneacion, on_delete=models.CASCADE, null=True, blank=True, related_name="dia2")
     dia3 = models.OneToOneField(ComidasPlaneacion, on_delete=models.CASCADE, null=True, blank=True, related_name="dia3")
