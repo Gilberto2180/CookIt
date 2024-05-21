@@ -199,4 +199,4 @@ class PlaneacionSemanal(models.Model):
     dia7 = models.OneToOneField(ComidasPlaneacion, on_delete=models.CASCADE, null=True, blank=True, related_name="dia7")
 
     def __str__(self):
-        return self.dia_inicio
+        return self.usuario
