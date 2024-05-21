@@ -144,7 +144,7 @@ class ComidasSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class PlaneacinSendSerializer(serializers.ModelField):
+class PlaneacinSendSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.PlaneacionSemanal
         fields = "__all__"
