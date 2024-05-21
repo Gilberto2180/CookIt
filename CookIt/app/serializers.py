@@ -126,86 +126,39 @@ class UserCreateSerializer(serializers.ModelSerializer):
         fields = ["id", "username", "email", "first_name", "last_name", "recetas"]
 
 
+class ComidaSendSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.ComidasPlaneacion
+        fields = "__all__"
+
+
 class ComidasSerializer(serializers.ModelSerializer):
     desayuno = RecetaSerializer(read_only=True)
-    desayuno_id = serializers.PrimaryKeyRelatedField(
-        source='desayuno',
-        write_only=True,
-        queryset=models.Receta.objects.all()
-    )
     colacion = RecetaSerializer(read_only=True)
-    colacion_id = serializers.PrimaryKeyRelatedField(
-        source='colacion',
-        write_only=True,
-        queryset=models.Receta.objects.all()
-    )
     comida = RecetaSerializer(read_only=True)
-    comida_id = serializers.PrimaryKeyRelatedField(
-        source='comida',
-        write_only=True,
-        queryset=models.Receta.objects.all()
-    )
     colacion2 = RecetaSerializer(read_only=True)
-    colacion2_id = serializers.PrimaryKeyRelatedField(
-        source='colacion2',
-        write_only=True,
-        queryset=models.Receta.objects.all()
-    )
     cena = RecetaSerializer(read_only=True)
-    cena_id = serializers.PrimaryKeyRelatedField(
-        source='cena',
-        write_only=True,
-        queryset=models.Receta.objects.all()
-    )
 
     class Meta:
         model = models.ComidasPlaneacion
         fields = "__all__"
 
 
+class PlaneacinSendSerializer(serializers.ModelField):
+    class Meta:
+        model = models.PlaneacionSemanal
+        fields = "__all__"
+
+
 class PlaneacionSemanalSerializer(serializers.ModelSerializer):
     dia1 = ComidasSerializer(read_only=True)
-    dia1_id = serializers.PrimaryKeyRelatedField(
-        source="dia1",
-        write_only=True,
-        queryset=models.ComidasPlaneacion.objects.all()
-    )
     dia2 = ComidasSerializer(read_only=True)
-    dia2_id = serializers.PrimaryKeyRelatedField(
-        source="dia2",
-        write_only=True,
-        queryset=models.ComidasPlaneacion.objects.all()
-    )
     dia3 = ComidasSerializer(read_only=True)
-    dia3_id = serializers.PrimaryKeyRelatedField(
-        source="dia3",
-        write_only=True,
-        queryset=models.ComidasPlaneacion.objects.all()
-    )
     dia4 = ComidasSerializer(read_only=True)
-    dia4_id = serializers.PrimaryKeyRelatedField(
-        source="dia4",
-        write_only=True,
-        queryset=models.ComidasPlaneacion.objects.all()
-    )
     dia5 = ComidasSerializer(read_only=True)
-    dia5_id = serializers.PrimaryKeyRelatedField(
-        source="dia5",
-        write_only=True,
-        queryset=models.ComidasPlaneacion.objects.all()
-    )
     dia6 = ComidasSerializer(read_only=True)
-    dia6_id = serializers.PrimaryKeyRelatedField(
-        source="dia6",
-        write_only=True,
-        queryset=models.ComidasPlaneacion.objects.all()
-    )
     dia7 = ComidasSerializer(read_only=True)
-    dia7_id = serializers.PrimaryKeyRelatedField(
-        source="dia7",
-        write_only=True,
-        queryset=models.ComidasPlaneacion.objects.all()
-    )
+
     class Meta:
         model = models.PlaneacionSemanal
         fields = "__all__"

@@ -44,7 +44,7 @@ class ListaDeComprasViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.ListaDeComprasSerializer
 
 
-class PlaneacionSemanalViewSet(viewsets.ModelViewSet):
+class PlaneacionSemanalViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = models.PlaneacionSemanal.objects.all()
     serializer_class = serializers.PlaneacionSemanalSerializer
 
@@ -54,9 +54,19 @@ class RecetaViewSet(ModelViewSet):
     queryset = models.Receta.objects.all()
 
 
-class ComidasViewSet(viewsets.ModelViewSet):
+class ComidasViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = models.ComidasPlaneacion.objects.all()
     serializer_class = serializers.ComidasSerializer
+
+
+class ComidasSendViewSet(viewsets.ModelViewSet):
+    queryset = models.ComidasPlaneacion.objects.all()
+    serializer_class = serializers.ComidaSendSerializer
+
+
+class PlaneacionSendViewSet(viewsets.ModelViewSet):
+    queryset = models.PlaneacionSemanal.objects.all()
+    serializer_class = serializers.PlaneacinSendSerializer
 
 
 def AccountActivation(request, uid, token):
