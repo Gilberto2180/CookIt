@@ -174,3 +174,9 @@ class UserCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["id", "username", "email", "first_name", "last_name", "info", "recetas", "planeacion"]
+
+
+class AvisoSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = "__all__"
+        model = models.Avisos

@@ -18,6 +18,7 @@ router.register(r'categorias', views.CategoriaViewSet)
 router.register(r'comidas', views.ComidasViewSet)
 router.register(r'sendcomidas', views.ComidasSendViewSet, basename="dasd")
 router.register(r'sendplaneacion', views.PlaneacionSendViewSet, basename="sendplaneacion")
+router.register("avisos", views.AvisosViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),

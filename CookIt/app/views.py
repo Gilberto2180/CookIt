@@ -69,3 +69,8 @@ def AccountActivation(request, uid, token):
         "uid": uid,
         "token": token
     })
+
+
+class AvisosViewSet(viewsets.ModelViewSet):
+    queryset = models.Avisos.objects.all()
+    serializer_class = serializers.AvisoSerializer
